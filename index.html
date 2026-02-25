@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>فزورة - لعبة التحدي العائلي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: #0b1120;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffbe0b, #fb5607, #ff006e, #8338ec);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffbe0b;
+        }
+
+        /* قسم البطل (Hero) */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 60px 0;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffbe0b, #fb5607, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 70px;
+            padding: 30px;
+            border: 3px solid #ff006e;
+            box-shadow: 0 20px 40px -10px black;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mock-score {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .mock-team {
+            text-align: center;
+        }
+
+        .mock-team .team-badge {
+            width: 60px;
+            height: 60px;
+            background: #e63946;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 10px;
+            border: 3px solid white;
+        }
+
+        .mock-team.blue .team-badge {
+            background: #3a86ff;
+        }
+
+        .mock-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .mock-box {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #3a56d4;
+            border-radius: 20px;
+            padding: 15px 5px;
+            text-align: center;
+            font-weight: 900;
+            color: #3a56d4;
+            box-shadow: 0 5px 0 #1e3a8a;
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #4361ee, #3a56d4);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 10px 0 #1e3a8a, 0 10px 30px #4361ee80;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-block;
+            text-decoration: none;
+            border: 2px solid #ffbe0b;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 0 #1e3a8a, 0 15px 40px #4361ee;
+        }
+
+        .btn-primary:active {
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #1e3a8a;
+        }
+
+        .btn-large {
+            font-size: 2rem;
+            padding: 20px 60px;
+        }
+
+        /* أقسام المميزات */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-align: center;
+            margin: 60px 0 40px;
+            background: linear-gradient(135deg, #ffbe0b, #fb5607, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 30px 20px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff006e;
+            box-shadow: 0 20px 30px -10px #ff006e;
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            color: #ffbe0b;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2rem;
+        }
+
+        /* عرض المجالات */
+        .categories-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .cat-item {
+            background: rgba(255,255,255,0.05);
+            border: 3px solid #4361ee;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #4361ee;
+            box-shadow: 0 8px 0 #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cat-item i {
+            color: #ffbe0b;
+        }
+
+        /* الميزات الخاصة */
+        .special-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .special-card {
+            background: linear-gradient(145deg, #2a3a5e, #1d2b45);
+            border: 3px solid #ffbe0b;
+            border-radius: 80px;
+            padding: 25px 40px;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .special-card i {
+            font-size: 4rem;
+            color: #ffbe0b;
+            margin-bottom: 15px;
+        }
+
+        .special-card h4 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .special-card p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* لقطات الشاشة (محاكاة) */
+        .screenshots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .shot {
+            width: 180px;
+            height: 320px;
+            background: #1a2639;
+            border-radius: 40px;
+            border: 3px solid #ff006e;
+            padding: 10px 5px;
+            box-shadow: 0 20px 30px -5px black;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shot-header {
+            background: #e63946;
+            height: 40px;
+            border-radius: 30px 30px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .shot-body {
+            flex: 1;
+            background: #0f1a2f;
+            border-radius: 0 0 30px 30px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .shot-line {
+            height: 20px;
+            background: #3a56d4;
+            border-radius: 10px;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .shot-line.small {
+            width: 60%;
+        }
+
+        .shot-line.pink {
+            background: #ff006e;
+        }
+/* تحسين للشاشات الصغيرة جداً */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .btn-large {
+        font-size: 1.5rem;
+        padding: 15px 30px;
+    }
+    .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .developer-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .developer-links {
+        justify-content: center;
+    }
+}
+/* قسم كيفية اللعب */
+.how-to-play {
+    margin: 60px 0;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.step-card {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff006e;
+    box-shadow: 0 20px 30px -10px #ff006e;
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff006e;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+    border: 3px solid #ffbe0b;
+    box-shadow: 0 5px 10px black;
+}
+
+.step-icon {
+    font-size: 3.5rem;
+    color: #ffbe0b;
+    margin: 30px 0 15px;
+}
+
+.step-card h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.step-card p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+}
+
+/* الوضع النهاري */
+body.light-mode .step-card {
+    background: rgba(0,0,0,0.03);
+    border-color: #d4a373;
+}
+
+body.light-mode .step-card:hover {
+    border-color: #e67e22;
+    box-shadow: 0 20px 30px -10px #e67e22;
+}
+
+body.light-mode .step-number {
+    background: #e67e22;
+    border-color: #ffbe0b;
+    color: #2d3748;
+}
+
+body.light-mode .step-card h3 {
+    color: #2d3748;
+}
+
+body.light-mode .step-card p {
+    color: #4a5568;
+}
+/* تحسين النص التمهيدي */
+.intro-text p {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.03);
+    padding: 20px;
+    border-radius: 60px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+body.light-mode .intro-text p {
+    color: #2d3748;
+    background: rgba(0,0,0,0.02);
+    border-color: #d4a373;
+}
+/* تحسين النص التمهيدي والملاحظات */
+.intro-text p, .extra-notes p {
+    transition: 0.3s;
+}
+.extra-notes {
+    transition: 0.3s;
+}
+.extra-notes:hover {
+    border-color: #ffbe0b;
+    background: rgba(255,255,255,0.05);
+}
+body.light-mode .extra-notes {
+    border-color: #d4a373;
+    background: rgba(0,0,0,0.02);
+}
+body.light-mode .extra-notes:hover {
+    border-color: #e67e22;
+}
+</style>
+</head>
+<body>
+                <div class="theme-switch" onclick="document.body.classList.toggle('light-mode')">
+        <i class="fas fa-adjust"></i> الوضع النهاري / الليلي
+    </div>
+
+    <div class="container">
+        <!-- شريط التنقل -->
+        <nav class="navbar">
+            <div class="logo">فـزورة</div>
+            <div class="nav-links">
+                <a href="#features">المميزات</a>
+                <a href="#categories">المجالات</a>
+                <a href="#special">مساعدات</a>
+                <a href="#play">جرب الآن</a>
+                <a href="#developer">المطور</a>
+            </div>
+        </nav>
+
+        <!-- قسم البطل (Hero) -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>لعبة التحدي العائلي<br>الأكثر إثارة</h1>
+                <p>اختبر معلوماتك مع العائلة أو الأصدقاء في أكثر من 1000 سؤال من 6 مجالات متنوعة. من سيكون الأذكى؟</p>
+                <a href="https://alaa777-lang.github.io/Fzora.by.3laa.2007/" class="btn-primary btn-large" target="_blank"><i class="fas fa-play"></i> جرب اللعبة الآن</a>
+            </div>
+            <div class="hero-image">
+                <div class="mock-score">
+                    <div class="mock-team">
+                        <div class="team-badge">أ</div>
+                        <div style="font-size:1.5rem; font-weight:900;">2,400</div>
+                    </div>
+                    <div class="mock-team blue">
+                        <div class="team-badge">ب</div>
+                        <div style="font-size:1.5rem; font-weight:900;">2,250</div>
+                    </div>
+                </div>
+                <div class="mock-board">
+                    <div class="mock-box">200</div>
+                    <div class="mock-box">400</div>
+                    <div class="mock-box">600</div>
+                    <div class="mock-box">800</div>
+                    <div class="mock-box">1000</div>
+                    <div class="mock-box" style="background:#ff006e; color:white;">🔥</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم المميزات -->
+        <h2 id="features" class="section-title">لماذا فـزورة؟</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-users feature-icon"></i>
+                <h3>لعب جماعي</h3>
+                <p>قسم اللاعبين إلى فريقين وتنافسوا في جو من المرح والتحدي.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-layer-group feature-icon"></i>
+                <h3>6 مجالات × 5 مستويات</h3>
+                <p>اختر من بين إسلاميات، ألغاز، علوم، جغرافيا، رياضة، تاريخ. لكل مجال أسئلة من 200 إلى 1000 نقطة.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock feature-icon"></i>
+                <h3>مؤقت 30 ثانية</h3>
+                <p>كل سؤال له وقت محدد يزيد من الإثارة وسرعة البديهة.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>إحصائيات دقيقة</h3>
+                <p>تتبع أداء الفريقين ونسب النجاح في كل جولة.</p>
+            </div>
+        </div>
+
+        <!-- عرض المجالات -->
+        <h2 id="categories" class="section-title">اختر مجالك المفضل</h2>
+        <div class="categories-showcase">
+            <div class="cat-item"><i class="fas fa-mosque"></i> إسلاميات</div>
+            <div class="cat-item"><i class="fas fa-puzzle-piece"></i> ألغاز</div>
+            <div class="cat-item"><i class="fas fa-flask"></i> علوم وتكنولوجيا</div>
+            <div class="cat-item"><i class="fas fa-globe"></i> جغرافيا</div>
+            <div class="cat-item"><i class="fas fa-futbol"></i> رياضة</div>
+            <div class="cat-item"><i class="fas fa-landmark"></i> تاريخ وحضارات</div>
+            <div class="cat-item"><i class="fas fa-film"></i> مسلسلات وسينما</div>
+            <div class="cat-item"><i class="fas fa-car"></i> سيارات</div>
+            <div class="cat-item"><i class="fas fa-paw"></i> عالم الحيوان</div>
+            <div class="cat-item"><i class="fas fa-utensils"></i> أكلات شعبية</div>
+        </div>
+
+<!-- قسم طريقة اللعب (How to Play) -->
+<section class="how-to-play">
+    <h2 class="section-title"><i class="fas fa-question-circle"></i> كيف تلعب فـزورة؟</h2>
+    
+    <!-- شرح تمهيدي مفصل -->
+    <div class="intro-text" data-aos="fade-up">
+        <p style="font-size: 1.4rem; text-align: center; max-width: 900px; margin: 0 auto 40px; color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.03); padding: 25px; border-radius: 60px; border: 1px solid rgba(255,255,255,0.1);">
+            لعبة فـزورة هي مسابقة عائلية تعتمد على الذكاء والمعلومات العامة. يتنافس فيها فريقان للإجابة عن أسئلة من مجالات متنوعة. كلما زادت صعوبة السؤال، زادت نقاطه. الهدف هو جمع أكبر عدد من النقاط بالفريق. إليك الخطوات بالتفصيل:
+        </p>
+    </div>
+
+    <div class="steps-container">
+        <div class="step-card" data-aos="fade-up">
+            <div class="step-number">1</div>
+            <i class="fas fa-layer-group step-icon"></i>
+            <h3>اختر 6 مجالات</h3>
+            <p>من قائمة تضم أكثر من 15 مجالاً (إسلاميات، رياضة، ألغاز، علوم، وغيرها). يجب اختيار 6 مجالات بالضبط لتبدأ اللعبة. يمكنك رؤية عدد المجالات المختارة من خلال شريط التقدم أسفل العنوان.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="step-number">2</div>
+            <i class="fas fa-play step-icon"></i>
+            <h3>ابدأ التحدي</h3>
+            <p>بعد اختيار المجالات، اضغط على زر "ابدأ التحدي". ستظهر لوحة النقاط التي تحتوي على أسئلة موزعة حسب المجالات وقيم النقاط (200، 400، 600، 800، 1000).</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="step-number">3</div>
+            <i class="fas fa-mouse-pointer step-icon"></i>
+            <h3>اختر سؤالاً</h3>
+            <p>اضغط على أي مربع في لوحة النقاط. سيتم فتح نافذة السؤال. ستظهر لك شاشة تطلب منك اختيار الفريق الذي سيجيب (يتم تناوب الأدوار تلقائياً، لكن يمكنك اختيار الفريق يدوياً في بداية كل سؤال).</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="step-number">4</div>
+            <i class="fas fa-users step-icon"></i>
+            <h3>اختر الفريق</h3>
+            <p>في بداية كل سؤال، اختر الفريق الذي سيحاول الإجابة. بعد الإجابة، ينتقل الدور إلى الفريق الآخر تلقائياً (يُشار إليه بإطار ذهبي حول بطاقة الفريق).</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="step-number">5</div>
+            <i class="fas fa-clock step-icon"></i>
+            <h3>أجب خلال 30 ثانية</h3>
+            <p>سيبدأ مؤقت تنازلي مدته 30 ثانية (يمكنك تعديل المدة من الإعدادات). اختر الإجابة الصحيحة من بين 4 خيارات. إذا كانت إجابتك صحيحة، تضاف النقاط إلى رصيد الفريق. إذا أخطأت أو انتهى الوقت، تظهر الإجابة الصحيحة ولا تضاف نقاط. يمكنك استخدام المساعدات (مضاعفة النقاط، حذف خيارين، التخطي) قبل الإجابة.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="step-number">6</div>
+            <i class="fas fa-trophy step-icon"></i>
+            <h3>الفوز</h3>
+            <p>تستمر اللعبة حتى يتم الإجابة على جميع الأسئلة أو حتى تضغط على زر "إنهاء اللعبة". عندها تظهر شاشة الفائز مع النتيجة النهائية وإحصائيات الفريقين (عدد المحاولات والإجابات الصحيحة). يمكنك مشاركة النتيجة أو بدء جولة جديدة.</p>
+        </div>
+    </div>
+
+    <!-- ملاحظات إضافية -->
+    <div class="extra-notes" data-aos="fade-up" style="margin-top: 40px; text-align: center; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 60px; border: 1px dashed #ff006e;">
+        <p style="font-size: 1.2rem; color: rgba(255,255,255,0.8);">
+            <i class="fas fa-lightbulb" style="color: #ffbe0b; margin-left: 8px;"></i>
+            يمكنك في أي وقت تغيير أسماء الفريقين، ضبط المؤقت، أو تفعيل الوضع النهاري/الليلي من شريط الأدوات.
+        </p>
+    </div>
+</section>
+
+        <!-- الميزات الخاصة -->
+        <h2 id="special" class="section-title">مساعدات ذكية تزيد المتعة</h2>
+        <div class="special-features">
+            <div class="special-card">
+                <i class="fas fa-bolt"></i>
+                <h4>مضاعفة النقاط</h4>
+                <p>فعّل مضاعفة النقاط واكسب ضعف النقاط للإجابة الصحيحة.</p>
+            </div>
+            <div class="special-card">
+                <i class="fas fa-lightbulb"></i>
+                <h4>حذف خيارين</h4>
+                <p>إذا علقت، استخدم المساعدة لحذف خيارين خاطئين (مقابل 100 نقطة).</p>
+            </div>
+            <div class="special-card">
+                <i class="fas fa-forward"></i>
+                <h4>تخطي السؤال</h4>
+                <p>يمكنك تخطي السؤال ولكن مع خصم بسيط من النقاط.</p>
+            </div>
+        </div>
+
+        <!-- لقطات شاشة محاكاة -->
+        <h2 class="section-title">لمحة من اللعبة</h2>
+        <div class="screenshots">
+            <div class="shot">
+                <div class="shot-header"><span>إسلاميات</span> <i class="fas fa-mosque"></i></div>
+                <div class="shot-body">
+                    <div class="shot-line"></div>
+                    <div class="shot-line pink"></div>
+                    <div class="shot-line small"></div>
+                    <div class="shot-line"></div>
+                </div>
+            </div>
+            <div class="shot">
+                <div class="shot-header" style="background:#3a86ff;"><span>ألغاز 600</span> <i class="fas fa-hourglass"></i></div>
+                <div class="shot-body">
+                    <div class="shot-line" style="width:100%;"></div>
+                    <div class="shot-line" style="width:90%;"></div>
+                    <div class="shot-line" style="width:80%; background:#ff006e;"></div>
+                    <div class="shot-line" style="width:70%;"></div>
+                </div>
+            </div>
+            <div class="shot">
+                <div class="shot-header" style="background:#ff006e;"><span>الفائز</span> <i class="fas fa-crown"></i></div>
+                <div class="shot-body">
+                    <div style="text-align:center; color:#ffbe0b; font-size:2rem;">🏆</div>
+                    <div class="shot-line small" style="margin-top:10px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- إحصائيات سريعة -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">+1000</div>
+                <div class="stat-label">سؤال</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">مجال</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">مستويات</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4.9</div>
+                <div class="stat-label">تقييم</div>
+            </div>
+        </div>
+
+        <!-- قسم الدعوة الأخير -->
+        <section id="play" class="cta-section">
+            <h2>استعد للتحدي الآن</h2>
+            <p style="font-size:1.5rem; margin-bottom:30px;">اجمع العائلة أو الأصدقاء واكتشف من هو الأذكى!</p>
+            <a href="https://alaa777-lang.github.io/Fzora.by.3laa.2007/" class="btn-primary btn-large" target="_blank"><i class="fas fa-gamepad"></i> جرب اللعبة مجاناً</a>
+        </section>
+
+        <!-- قسم تعريف المطور (معدل) -->
+        <section id="developer" class="developer-section">
+            <h2 class="section-title">مطور اللعبة</h2>
+            <div class="developer-card">
+                <div class="developer-avatar">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="developer-info">
+                    <h3>علاء</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> سوريا • 18 سنة</p>
+                    <p class="developer-bio">مطور مبتدئ بمجال تطوير الألعاب والتطبيقات التفاعلية. لعبة فزورة هي ثاني تجربة لي في عالم البرمجة.</p>
+                    
+                    <!-- عنوان حساباتي -->
+                    <h4 class="social-title">حساباتي</h4>
+                    
+                    <div class="developer-links">
+                        <a href="https://www.instagram.com/3laa.2007?igsh=NXJmZGZncmEyMWZo" target="_blank" class="social-link instagram">
+                            <i class="fab fa-instagram"></i> إنستغرام
+                        </a>
+                        <a href="https://tiktok.com/@3laa__777" target="_blank" class="social-link tiktok">
+                            <i class="fab fa-tiktok"></i> تيك توك
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- تذييل -->
+        <footer class="footer">
+            <p>صنع بواسطة <i class="fas fa-heart"></i> <a href="#developer">علاء</a> — الإصدار الذهبي 2026</p>
+            <p style="margin-top:10px;">جميع الحقوق محفوظة لفـزورة © 2026</p>
+        </footer>
+    </div>
+
+    <style>
+        /* بقية التنسيقات التي لم تكتمل في الجزء الأول */
+        .stats-bar {
+            background: rgba(0,0,0,0.3);
+            border-radius: 100px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 60px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ffbe0b;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin: 40px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        /* تنسيق قسم تعريف المطور */
+        .developer-section {
+            margin: 60px 0 40px;
+        }
+
+        .developer-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #ff006e;
+            border-radius: 70px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 30px -10px #ff006e80;
+        }
+
+        .developer-avatar {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #ffbe0b, #ff006e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            border: 4px solid white;
+            box-shadow: 0 10px 0 #7a2e4e;
+        }
+
+        .developer-info {
+            flex: 1;
+        }
+
+        .developer-info h3 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .developer-info p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 10px;
+        }
+
+        .developer-info i {
+            color: #ffbe0b;
+            margin-left: 8px;
+        }
+
+        .developer-bio {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 40px;
+            margin: 15px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            line-height: 1.7;
+        }
+
+        /* عنوان حساباتي */
+        .social-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ffbe0b;
+            margin: 20px 0 10px;
+            text-align: right;
+        }
+
+        .developer-links {
+            display: flex;
+            gap: 25px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* أزرار أكبر */
+        .social-link {
+            padding: 15px 35px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+
+        .social-link.instagram {
+            background: radial-gradient(circle at 30% 30%, #f09433, #d62976, #962fbf);
+            color: white;
+        }
+
+        .social-link.tiktok {
+            background: #010101;
+            color: white;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -5px black;
+        }
+
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 60px;
+        }
+
+        .footer i {
+            color: #ff006e;
+        }
+
+        .footer a {
+            color: #ffbe0b;
+            text-decoration: none;
+        }
+
+        /* الوضع النهاري */
+        body.light-mode {
+            background: #f8f4f0;
+            color: #2d3748;
+        }
+
+        body.light-mode .navbar {
+            border-bottom-color: rgba(0,0,0,0.1);
+        }
+
+        body.light-mode .nav-links a {
+            color: #2d3748;
+        }
+
+        body.light-mode .hero-content p {
+            color: #4a5568;
+        }
+
+        body.light-mode .hero-image {
+            background: #fefcf7;
+            border-color: #d4a373;
+        }
+
+        body.light-mode .mock-box {
+            background: #faf3ea;
+            border-color: #d4a373;
+            color: #4a4a4a;
+            box-shadow: 0 5px 0 #b68b5c;
+        }
+
+        body.light-mode .feature-card {
+            background: rgba(0,0,0,0.03);
+            border-color: #d4a373;
+        }
+
+        body.light-mode .feature-card p {
+            color: #4a5568;
+        }
+
+        body.light-mode .cat-item {
+            background: #faf3ea;
+            border-color: #d4a373;
+            color: #4a4a4a;
+            box-shadow: 0 8px 0 #b68b5c;
+        }
+
+        body.light-mode .special-card {
+            background: #faf3ea;
+            border-color: #e67e22;
+        }
+
+        body.light-mode .special-card h4,
+        body.light-mode .special-card p {
+            color: #2d3748;
+        }
+
+        body.light-mode .shot {
+            border-color: #d4a373;
+        }
+
+        body.light-mode .stats-bar {
+            background: rgba(0,0,0,0.05);
+        }
+
+        body.light-mode .btn-primary {
+            background: linear-gradient(145deg, #e67e22, #d35400);
+            box-shadow: 0 10px 0 #a04000;
+        }
+
+        body.light-mode .developer-card {
+            background: rgba(0,0,0,0.03);
+            border-color: #d4a373;
+        }
+
+        body.light-mode .developer-info h3,
+        body.light-mode .developer-info p,
+        body.light-mode .developer-bio {
+            color: #2d3748;
+        }
+
+        body.light-mode .social-title {
+            color: #e67e22;
+        }
+
+        body.light-mode .footer {
+            color: #4a5568;
+        }
+
+        /* زر تبديل الوضع */
+        .theme-switch {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 999;
+            border: 1px solid #ffbe0b;
+            box-shadow: 0 5px 15px black;
+        }
+/* قسم كيفية اللعب */
+.how-to-play {
+    margin: 60px 0;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.step-card {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff006e;
+    box-shadow: 0 20px 30px -10px #ff006e;
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff006e;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+    border: 3px solid #ffbe0b;
+    box-shadow: 0 5px 10px black;
+}
+
+.step-icon {
+    font-size: 3.5rem;
+    color: #ffbe0b;
+    margin: 30px 0 15px;
+}
+
+.step-card h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.step-card p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+}
+
+/* الوضع النهاري */
+body.light-mode .step-card {
+    background: rgba(0,0,0,0.03);
+    border-color: #d4a373;
+}
+
+body.light-mode .step-card:hover {
+    border-color: #e67e22;
+    box-shadow: 0 20px 30px -10px #e67e22;
+}
+
+body.light-mode .step-number {
+    background: #e67e22;
+    border-color: #ffbe0b;
+    color: #2d3748;
+}
+
+body.light-mode .step-card h3 {
+    color: #2d3748;
+}
+
+body.light-mode .step-card p {
+    color: #4a5568;
+}
+/* تحسين النص التمهيدي والملاحظات */
+.intro-text p, .extra-notes p {
+    transition: 0.3s;
+}
+.extra-notes {
+    transition: 0.3s;
+}
+.extra-notes:hover {
+    border-color: #ffbe0b;
+    background: rgba(255,255,255,0.05);
+}
+body.light-mode .extra-notes {
+    border-color: #d4a373;
+    background: rgba(0,0,0,0.02);
+}
+body.light-mode .extra-notes:hover {
+    border-color: #e67e22;
+}
+    </style>
+
+    <script>
+        // تمرير سلس للروابط الداخلية فقط (التي تبدأ بـ #)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+<script>
+    AOS.init({ duration: 800, once: true });
+</script>
+</body>
+</html>
